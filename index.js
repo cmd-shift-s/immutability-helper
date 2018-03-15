@@ -7,6 +7,12 @@ function updateArray(state, commands) {
         case '$splice':
           value.forEach(args => ctx.splice(...args))
           return ctx
+        case '$push':
+          ctx.push(...value)
+          return ctx
+        case '$unshift':
+          ctx.unshift(...value)
+          return ctx
       }
     }, state)
 }
