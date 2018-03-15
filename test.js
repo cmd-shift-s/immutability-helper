@@ -24,6 +24,16 @@ describe("update", () => {
     it("reuses state on different branches", () => {
       expect(state.unChanged).toBe(nextState.unChanged);
     });
+
+    it('should pass', () => {
+      const state = { name: "Alice", todos: [] };
+      const nextState = update(state, {
+        name: { $set: "Bob" }
+      });
+
+      expect(nextState.name).toBe("Bob")
+      expect(state.todos).toBe(nextState.todos)
+    })
   });
 
   describe("can pass react's test suite", () => {
