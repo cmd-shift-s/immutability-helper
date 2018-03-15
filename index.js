@@ -1,4 +1,3 @@
-
 // recursive function
 function update(state, commands) {
   const context = {}
