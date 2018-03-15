@@ -1,32 +1,27 @@
 
 // recursive function
-function set(context, commands, prop) {
-  Object.keys(commands).forEach(target => {
-    const command = commands[target]
-    if(command.hasOwnProperty('$set')) {
-      context[prop] = Object.assign({}, context[prop], {[target]: command['$set']})
-    } else {
-      // TODO context[prop] is undefined.
-
-      set(context[prop], command, target)
-    }
-  })
-}
-
 function update(state, commands) {
+  const context = {}
 
-  if (commands.hasOwnProperty('$set')) {
-    return commands['$set']
-  }
-  
-  // soft copy
-  const nextState = Object.assign({}, state)
+  // 나머지 프로퍼티들을 복사
+  Object.keys(state)
+    .filter(prop => !commands.hasOwnProperty(prop))
+    .forEach(prop => {
+      context[prop] = state[prop]
+    })
 
-  Object.keys(commands).forEach(target => {
-    set(nextState, commands[target], target)
-  })
+  return Object.entries(commands)
+    .reduce((ctx, [prop, value]) => {
+      if (prop === '$set') {
+        return value
+      }
 
-  return nextState
+      if (state.hasOwnProperty(prop)) {
+        ctx[prop] = update(state[prop], value)
+      }
+
+      return ctx
+    }, context)
 }
 
 module.exports = update
