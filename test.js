@@ -1,4 +1,4 @@
-const update = require("./your-file"); // <- this is the file you make;
+const update = require("./");
 
 describe("update", () => {
   describe("has a #$set method that", () => {
