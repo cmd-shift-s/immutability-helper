@@ -1,0 +1,12 @@
+{
+  "name": "immutability-helper",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "gongzza <gz.us.to@gmail.com>",
+  "license": "MIT"
+}
