@@ -49,7 +49,7 @@ function update(state, commands) {
 
           return value(state)
         } else {
-          throw new Error(`Not Found command: ${cmd}`)
+          throw new Error(`Not Found command: ${prop}`)
         }
       }
 
