@@ -1,5 +1,23 @@
+
+// update array end point
+function updateArray(state, commands) {
+  return Object.entries(commands)
+    .reduce((ctx, [cmd, value]) => {
+      switch (cmd) {
+        case '$splice':
+          value.forEach(args => ctx.splice(...args))
+          return ctx
+      }
+    }, state)
+}
+
 // recursive function
 function update(state, commands) {
+
+  if (Array.isArray(state)) {
+    return updateArray(state, commands)
+  }
+
   const context = {}
 
   // 나머지 프로퍼티들을 복사
