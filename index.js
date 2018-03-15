@@ -42,6 +42,12 @@ function update(state, commands) {
           return value
         } else if (prop === '$merge') {
           return Object.assign({}, state, value)
+        } else if (prop === '$apply') {
+          if (typeof value !== 'function') {
+            throw new Error(`Invalid argument: '$apply'는 함수만 받을 수 있습니다.`)
+          }
+
+          return value(state)
         } else {
           throw new Error(`Not Found command: ${cmd}`)
         }
