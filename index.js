@@ -13,6 +13,8 @@ function updateArray(state, commands) {
         case '$unshift':
           ctx.unshift(...value)
           return ctx
+        default:
+          throw new Error(`Not Found command: ${cmd}`)
       }
     }, state)
 }
@@ -35,10 +37,14 @@ function update(state, commands) {
 
   return Object.entries(commands)
     .reduce((ctx, [prop, value]) => {
-      if (prop === '$set') {
-        return value
-      } else if (prop === '$merge') {
-        return Object.assign({}, state, value)
+      if (prop.startsWith('$')) {
+        if (prop === '$set') {
+          return value
+        } else if (prop === '$merge') {
+          return Object.assign({}, state, value)
+        } else {
+          throw new Error(`Not Found command: ${cmd}`)
+        }
       }
 
       if (state.hasOwnProperty(prop)) {
