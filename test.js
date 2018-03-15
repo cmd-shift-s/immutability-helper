@@ -36,6 +36,20 @@ describe("update", () => {
     })
   });
 
+  describe("throws error", () => {
+    it("should throw 'not found command' error", () => {
+      expect(() => {
+        update({a: "b"}, {$boom: {}})
+      }).toThrowError("Not Found command: $boom")
+    })
+
+    it("should throw 'invalid argument' error", () => {
+      expect(() => {
+        update(2, {$apply: 4})
+      }).toThrowError("Invalid argument: '$apply'는 함수만 받을 수 있습니다.")
+    })
+  })
+
   describe("can pass react's test suite", () => {
     it("should support set", () => {
       expect(update({ a: "b" }, { $set: { c: "d" } })).toEqual({ c: "d" });
