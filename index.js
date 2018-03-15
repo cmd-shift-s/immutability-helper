@@ -13,6 +13,8 @@ function update(state, commands) {
     .reduce((ctx, [prop, value]) => {
       if (prop === '$set') {
         return value
+      } else if (prop === '$merge') {
+        return Object.assign({}, state, value)
       }
 
       if (state.hasOwnProperty(prop)) {
