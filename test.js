@@ -56,11 +56,15 @@ describe("update", () => {
     });
 
     it("should support push", () => {
-      expect(update([1], { $push: [7] })).toEqual([1, 7]);
+      const state = [1]
+      expect(update(state, { $push: [7] })).toEqual([1, 7]);
+      expect(state).toEqual([1])
     });
 
     it("should support unshift", () => {
-      expect(update([1], { $unshift: [7] })).toEqual([7, 1]);
+      const state = [1]
+      expect(update(state, { $unshift: [7] })).toEqual([7, 1]);
+      expect(state).toEqual([1])
     });
 
     it("should support merge", () => {
@@ -90,7 +94,9 @@ describe("update", () => {
     });
 
     it("should support splice", () => {
-      expect(update([1, 4, 3], { $splice: [[1, 1, 2]] })).toEqual([1, 2, 3]);
+      const state = [1, 4, 3]
+      expect(update(state, { $splice: [[1, 1, 2]] })).toEqual([1, 2, 3]);
+      expect(state).toEqual([1, 4, 3])
     });
   });
 });
