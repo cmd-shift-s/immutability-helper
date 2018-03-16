@@ -16,7 +16,7 @@ function updateArray(state, commands) {
         default:
           throw new Error(`Not Found command: ${cmd}`)
       }
-    }, state)
+    }, [...state])
 }
 
 // recursive function
