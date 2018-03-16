@@ -36,25 +36,25 @@ function update(state, commands) {
     })
 
   return Object.entries(commands)
-    .reduce((ctx, [prop, value]) => {
-      if (prop.startsWith('$')) {
-        if (prop === '$set') {
+    .reduce((ctx, [cmd, value]) => {
+      if (cmd.startsWith('$')) {
+        if (cmd === '$set') {
           return value
-        } else if (prop === '$merge') {
+        } else if (cmd === '$merge') {
           return Object.assign({}, state, value)
-        } else if (prop === '$apply') {
+        } else if (cmd === '$apply') {
           if (typeof value !== 'function') {
             throw new Error(`Invalid argument: '$apply'는 함수만 받을 수 있습니다.`)
           }
 
           return value(state)
         } else {
-          throw new Error(`Not Found command: ${prop}`)
+          throw new Error(`Not Found command: ${cmd}`)
         }
       }
 
-      if (state.hasOwnProperty(prop)) {
-        ctx[prop] = update(state[prop], value)
+      if (state.hasOwnProperty(cmd)) {
+        ctx[cmd] = update(state[cmd], value)
       }
 
       return ctx
